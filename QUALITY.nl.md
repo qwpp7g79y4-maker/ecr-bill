@@ -17,7 +17,7 @@ Per doel: lib-unittests 96, `tests/cli.rs` 53, `tests/docs_clean.rs` 4, `tests/d
 
 ## Not run
 
-- Rust 1.85 (MSRV): gemeten op 2026-11-25 op de code van b70469c met rustc 1.85.1 en cargo 1.85.1: `cargo +1.85 fmt --check` exit 0, `cargo +1.85 clippy --all-targets --locked -- -D warnings` exit 0, `cargo +1.85 test --locked` (debug) exit 0 met 206 geslaagd, 0 mislukt, 0 genegeerd; release met 1.85: `cargo +1.85 test --release --locked` exit 0 met 240 geslaagd, 0 mislukt, 0 genegeerd, gemeten op 2026-11-25 op a883081
+- Rust 1.85 (MSRV): gemeten op 2026-11-25 op de code van 157f671 (HEAD 0c6b176) met rustc 1.85.1 en cargo 1.85.1 (`cargo +1.85 fmt --check` exit 0 en `cargo +1.85 clippy --all-targets --locked -- -D warnings` exit 0 eerder gemeten op de code van b70469c), tests in een lege eigen doelmap (`CARGO_TARGET_DIR=target/isolated-185b`): `cargo +1.85 test --locked` (debug) exit 0 met 206 geslaagd, 0 mislukt, 0 genegeerd; `cargo +1.85 test --release --locked` exit 0 met 206 geslaagd, 0 mislukt, 0 genegeerd. Alle doelwitten horen bij de crate ecr-bill.
 - Windows-doel: not run
 - macOS-doel: not run
 - Uitgepakt pakket (`cargo package`): not run
