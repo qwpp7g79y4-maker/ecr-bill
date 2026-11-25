@@ -32,6 +32,8 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 #[derive(Parser)]
 #[command(
     name = "ecr-bill",
+    bin_name = "ecr-bill",
+    term_width = 0,
     version = VERSION,
     about = "Estimate ECR storage cost from describe-images JSON. Reads files only, no network.",
     after_help = "Exit codes: 0 ok, 2 input or usage error, 130 interrupted (SIGINT)."

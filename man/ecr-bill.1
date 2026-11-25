@@ -11,30 +11,18 @@ Arguments:
   <FILE>...  `aws ecr describe-images` JSON files
 
 Options:
-      --prices <FILE>
-          Price file. The default is the built-in US East (N. Virginia) list
-      --as-of <YYYY-MM-DD>
-          Date ages are measured to, `YYYY-MM-DD`, midnight UTC. Without it, old images are omitted
-      --older-than-days <OLDER_THAN_DAYS>
-          An image is old when its push date is more than this many days before `--as-of` [default: 30]
-      --untagged-days <UNTAGGED_DAYS>
-          Untagged images older than this many days are in the proposed expire rule [default: 14]
-      --keep <KEEP>
-          Tagged images beyond this count are in the proposed expire rule [default: 10]
-      --output <FILE>
-          Write the report to this file instead of standard output. An existing regular file is replaced; a symbolic link is refused
-      --json
-          Print JSON instead of the text table
-      --md
-          Print Markdown tables instead of the text table. Not with `--json`
-      --quiet
-          Print only the report and errors: no warning lines on standard error. Not with `--verbose`
-      --verbose
-          Add progress lines on standard error. Not with `--quiet`
-  -h, --help
-          Print help
-  -V, --version
-          Print version
+      --prices <FILE>                      Price file. The default is the built-in US East (N. Virginia) list
+      --as-of <YYYY-MM-DD>                 Date ages are measured to, `YYYY-MM-DD`, midnight UTC. Without it, old images are omitted
+      --older-than-days <OLDER_THAN_DAYS>  An image is old when its push date is more than this many days before `--as-of` [default: 30]
+      --untagged-days <UNTAGGED_DAYS>      Untagged images older than this many days are in the proposed expire rule [default: 14]
+      --keep <KEEP>                        Tagged images beyond this count are in the proposed expire rule [default: 10]
+      --output <FILE>                      Write the report to this file instead of standard output. An existing regular file is replaced; a symbolic link is refused
+      --json                               Print JSON instead of the text table
+      --md                                 Print Markdown tables instead of the text table. Not with `--json`
+      --quiet                              Print only the report and errors: no warning lines on standard error. Not with `--verbose`
+      --verbose                            Add progress lines on standard error. Not with `--quiet`
+  -h, --help                               Print help
+  -V, --version                            Print version
 
 Exit codes: 0 ok, 2 input or usage error, 130 interrupted (SIGINT).
 .fi
