@@ -1,0 +1,55 @@
+ecr-bill
+Estimate from list prices, not your AWS invoice (free tier, credits, discounts not included)
+source: https://aws.amazon.com/ecr/pricing/
+as of: 2026-11-09
+region: us-east-1 (US East (N. Virginia))
+free tier not applied
+not applied: retrieval 0.03 USD per GB; archive minimum 90 days
+
+repositories
+app images=2 bytes=2147483648 untagged=1 old=2 estimated_usd_month=0.20
+total images=2 bytes=2147483648 untagged=1 estimated_usd_month=0.20
+
+untagged
+app sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb bytes=1073741824 tags=0
+
+old
+as-of: 2026-11-09
+older_than_days: 30
+app sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa age_days=1029 tags=1 bytes=1073741824
+app sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb age_days=2504 tags=0 bytes=1073741824
+
+lifecycle
+Not executed
+{
+  "rules": [
+    {
+      "rulePriority": 1,
+      "description": "Expire untagged images older than 14 days",
+      "selection": {
+        "tagStatus": "untagged",
+        "countType": "sinceImagePushed",
+        "countUnit": "days",
+        "countNumber": 14
+      },
+      "action": {
+        "type": "expire"
+      }
+    },
+    {
+      "rulePriority": 2,
+      "description": "Keep the newest 10 tagged images",
+      "selection": {
+        "tagStatus": "tagged",
+        "tagPatternList": [
+          "*"
+        ],
+        "countType": "imageCountMoreThan",
+        "countNumber": 10
+      },
+      "action": {
+        "type": "expire"
+      }
+    }
+  ]
+}

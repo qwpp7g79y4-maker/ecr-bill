@@ -1,0 +1,239 @@
+.TH ECR-BILL 1 "2026-11-19" "ecr-bill 1.0.0" "User Commands"
+.SH NAME
+ecr-bill \- estimate Amazon ECR storage cost from describe-images JSON
+.SH SYNOPSIS
+.nf
+Estimate ECR storage cost from describe-images JSON. Reads files only, no network.
+
+Usage: ecr-bill [OPTIONS] <FILE>...
+
+Arguments:
+  <FILE>...  `aws ecr describe-images` JSON files
+
+Options:
+      --prices <FILE>
+          Price file. The default is the built-in US East (N. Virginia) list
+      --as-of <YYYY-MM-DD>
+          Date ages are measured to, `YYYY-MM-DD`, midnight UTC. Without it, old images are omitted
+      --older-than-days <OLDER_THAN_DAYS>
+          An image is old when its push date is more than this many days before `--as-of` [default: 30]
+      --untagged-days <UNTAGGED_DAYS>
+          Untagged images older than this many days are in the proposed expire rule [default: 14]
+      --keep <KEEP>
+          Tagged images beyond this count are in the proposed expire rule [default: 10]
+      --output <FILE>
+          Write the report to this file instead of standard output. An existing regular file is replaced; a symbolic link is refused
+      --json
+          Print JSON instead of the text table
+      --md
+          Print Markdown tables instead of the text table. Not with `--json`
+      --quiet
+          Print only the report and errors: no warning lines on standard error. Not with `--verbose`
+      --verbose
+          Add progress lines on standard error. Not with `--quiet`
+  -h, --help
+          Print help
+  -V, --version
+          Print version
+
+Exit codes: 0 ok, 2 input or usage error, 130 interrupted (SIGINT).
+.fi
+.SH DESCRIPTION
+ecr-bill reads one or more local files written by
+.B aws ecr describe-images
+and prices the storage of the images in them, per repository, on this machine.
+It lists untagged images and images older than a chosen number of days, and prints a lifecycle policy as JSON text.
+It reads files only: it makes no network call, uses no AWS SDK, and does not apply the policy.
+The line
+.B Not executed
+in the report says so.
+.PP
+Each element of
+.B imageDetails
+is one image, so the same digest in two files is counted twice.
+One GB is 1073741824 bytes.
+An image without
+.B imageStatus
+is priced as ECR Standard.
+.B ARCHIVED
+images are priced at the archive rate, tiered at 150 TB.
+Any other status is not priced, but it still counts as an image and as bytes, and a warning is printed.
+Retrieval fees, the 90-day archive minimum, the account free tier, data transfer, managed signing, and encryption are not charged.
+.PP
+Each repository amount is rounded half away from zero to the cent.
+The dollar total is the sum of the unrounded amounts, rounded once to the cent.
+The registry id in the input is not printed.
+.PP
+The amounts are an estimate from list prices, not your AWS invoice: the free tier, credits and discounts are not included.
+The text report says so on its second line (\fBEstimate from list prices, not your AWS invoice (free tier, credits, discounts not included)\fR), and every money field is named
+.B estimated_usd_month
+(in the text lines and in
+.BR --json ).
+.B --json
+also has the top-level field
+.B \(dqestimate\(dq: true.
+.PP
+Without
+.BR --as-of ,
+storage is priced and the list of old images is omitted; the clock is never used as a default date for the bill.
+.PP
+If the price date (\fBsource_date\fR) of the price file in use is more than 180 days before
+.B --as-of
+(or before today without it), one line
+.B warning: prices are N days old (price date YYYY-MM-DD, as of YYYY-MM-DD); check current prices
+is written to standard error; the exit code and standard output do not change.
+A price date that is not written YYYY-MM-DD gives no warning.
+.PP
+An input file is read as UTF-8, up to 268435456 bytes.
+A symlink to a file is followed.
+A directory or any other file that is not a regular file is an error.
+A path replaced by a fifo between that check and the open is refused the same way, and the open does not wait for a writer.
+Warnings are printed as
+.B warning:
+lines in the text report.
+With
+.B --json
+they are in the
+.B warnings
+array and are also written to standard error.
+.PP
+A file holds one JSON value, nested at most 128 levels deep; a second value after it, a duplicate key in an object, or deeper nesting is an error.
+A byte count is a whole number from 0 to 18446744073709551615, and a byte total that does not fit in 64 bits is an error.
+An image digest must not contain a space or a tab.
+A control, line-break, or invisible character in a value is written as
+.B \eu{hex}
+in the text report and in messages, and as a
+.B \euXXXX
+JSON escape in
+.BR --json .
+The same holds for a command-line argument echoed in a usage error, which stays on one line.
+.PP
+.B imagePushedAt
+is a JSON number of seconds since 1970-01-01 UTC, from 0 to 9223372036854775807, or an ISO 8601 string
+.B YYYY-MM-DDTHH:MM:SS
+with an optional fraction and a zone,
+.B Z
+or
+.B +HH:MM
+or
+.B -HH:MM
+up to 23:59.
+A missing or null value skips the image for age and gives a warning.
+Any other value is
+.BR "invalid imagePushedAt" .
+.PP
+A price file given with
+.B --prices
+has the shape of
+.B prices/ecr-storage.json
+in the source tree.
+Each rate is a string of digits with at most one decimal point between digits and at most 40 characters, and the decimal type must hold it exactly: at most 28 digits, and nothing above 79228162514264337593543950335.
+A field that is absent is reported as missing, and a field of the wrong kind as invalid.
+An amount is never rounded before the cent: bytes times a rate divided by 1073741824, a repository's share of a tiered archive amount, and every sum are exact whole-number fractions (512 bits), and the cent is taken once at the end, half away from zero, for each row and for the total.
+The error
+.B cost does not fit
+remains only for a number that would not fit in 512 bits, which no valid input reaches.
+.PP
+Memory use depends on the shape of the file.
+Measured with the release binary, maximum resident set divided by the file size, at 8388608, 16777216 and 33554432 bytes: one-element lists were 103.32, 103.06 and 102.99 times the file, tiny values were 53.07, 53.08 and 53.01 times, and lists nested 120 levels were 152.30, 152.26 and 152.18 times.
+The 120-level lists are the highest: 268435456 bytes of that shape would need 40883978240 bytes, calculated from the 8388608-byte run and not run.
+100000, 200000 and 400000 ordinary images were 17.72, 17.43 and 17.32 times the file.
+The size limit is per file, not per run, and the memory of several files adds up.
+.SH OPTIONS
+.TP
+.B --prices \fIFILE\fR
+Read the price quote from
+.I FILE
+instead of the built-in US East (N. Virginia) rates.
+The file replaces the whole quote.
+An unknown field is ignored, and a duplicate key is an error.
+.TP
+.B --as-of \fIYYYY-MM-DD\fR
+The date ages are measured to, at midnight UTC, from 0000-01-01 to 9999-12-31.
+Without it, old images are omitted.
+.TP
+.B --older-than-days \fIN\fR
+An image is old when its push date is more than
+.I N
+days before
+.BR --as-of .
+The value is 1 to 36500. The default is 30.
+.TP
+.B --untagged-days \fIN\fR
+Untagged images older than
+.I N
+days are in the proposed expire rule.
+The value is 1 to 36500. The default is 14.
+.TP
+.B --keep \fIN\fR
+Tagged images beyond this count are in the proposed expire rule.
+The value is 1 to 10000. The default is 10.
+.TP
+.B --output \fIFILE\fR
+Write the report to this file instead of standard output.
+The report is written to a new file in the same directory and renamed over \fIFILE\fR, so \fIFILE\fR holds the old content or the whole new report.
+An existing regular file is replaced.
+A symbolic link and anything that is not a regular file are refused, and a missing directory is not created.
+Any of these, or a write error, is exit status 2 with a message on standard error.
+A run that fails, or is interrupted, leaves an existing \fIFILE\fR as it was.
+.TP
+.B --json
+Print one JSON document instead of the text table.
+The object starts with
+.B "schema_version": 1
+and a failed run prints no JSON.
+.TP
+.B --md
+Print Markdown tables instead of the text table.
+The amounts are the strings of the text and JSON reports.
+A pipe, a backslash and the other Markdown characters in a value get a backslash.
+Not with
+.BR --json :
+the two together are a usage error with exit status 2.
+.TP
+.B --quiet
+Print only the report and errors.
+The warning lines on standard error (the price-age warning and, with
+.BR --json ,
+the image warnings) are not written; they stay in the report.
+Standard output and the exit code do not change.
+Not with
+.BR --verbose :
+the two together are a usage error with exit status 2.
+.TP
+.B --verbose
+Write progress lines on standard error: the number of files, each file name (control characters escaped) and
+.BR done .
+Standard output and the exit code do not change.
+Not with
+.BR --quiet .
+.TP
+.B -h, --help
+Print the usage text.
+.TP
+.B -V, --version
+Print the version.
+.SH EXIT STATUS
+.TP
+.B 0
+The report was written.
+.TP
+.B 2
+An input or usage error: an unreadable or invalid file, a bad option, or output that cannot be written (a closed, full or broken standard output, or one that is open for reading only; the closed and read-only cases are detected on Linux only).
+The message goes to standard error.
+.TP
+.B 130
+Interrupted by SIGINT (Ctrl-C), on systems that have that signal.
+The message
+.B ecr-bill: interrupted by SIGINT
+is written to standard error and nothing to standard output.
+A signal that arrives once the report is complete and being written is ignored, so a report is never cut in half.
+.SH EXAMPLES
+.nf
+ecr-bill examples/describe-images.json
+ecr-bill --as-of 2026-11-09 examples/describe-images.json
+ecr-bill --json --older-than-days 90 --keep 20 repo-a.json repo-b.json
+ecr-bill --prices my-quote.json images.json
+.fi
+.SH SEE ALSO
+README.md, QUALITY.md and SECURITY.md in the source tree.

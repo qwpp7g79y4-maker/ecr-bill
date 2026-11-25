@@ -1,0 +1,59 @@
+{
+    "imageDetails": [
+        {
+            "registryId": "012345678910",
+            "repositoryName": "team/app-api_v2.0",
+            "imageDigest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+            "imageTags": [
+                "latest",
+                "v1.2.3",
+                "release-2026.11_rc.1"
+            ],
+            "imageSizeInBytes": 2147483648,
+            "imagePushedAt": 1541469646.0,
+            "imageManifestMediaType": "application/vnd.docker.distribution.manifest.v2+json",
+            "artifactMediaType": "application/vnd.docker.container.image.v1+json",
+            "lastRecordedPullTime": 1541470000.0,
+            "imageScanStatus": {
+                "status": "COMPLETE",
+                "description": "The scan was completed successfully."
+            },
+            "imageScanFindingsSummary": {
+                "imageScanCompletedAt": 1541469700.0,
+                "vulnerabilitySourceUpdatedAt": 1541469000.0,
+                "findingSeverityCounts": {
+                    "HIGH": 2,
+                    "MEDIUM": 5
+                }
+            }
+        },
+        {
+            "registryId": "012345678910",
+            "repositoryName": "team/app-api_v2.0",
+            "imageDigest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+            "imageTags": [],
+            "imageSizeInBytes": 1073741824,
+            "imagePushedAt": 1541469000.0,
+            "imageManifestMediaType": "application/vnd.docker.distribution.manifest.v2+json"
+        },
+        {
+            "registryId": "012345678910",
+            "repositoryName": "team/app-api_v2.0",
+            "imageDigest": "sha256:3333333333333333333333333333333333333333333333333333333333333333",
+            "imageSizeInBytes": 1073741824,
+            "imagePushedAt": 1541468000.0
+        },
+        {
+            "registryId": "012345678910",
+            "repositoryName": "legacy.tools",
+            "imageDigest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+            "imageTags": [
+                "1.0"
+            ],
+            "imageSizeInBytes": 10737418240,
+            "imagePushedAt": 1541400000.0,
+            "imageStatus": "ARCHIVED"
+        }
+    ],
+    "nextToken": "eyJ2IjoxfQ=="
+}

@@ -1,0 +1,20 @@
+{
+  "imageDetails": [
+    {
+      "registryId": "123456789012",
+      "repositoryName": "app",
+      "imageDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "imageTags": ["v1"],
+      "imageSizeInBytes": 1073741824,
+      "imagePushedAt": 1705276800,
+      "imageStatus": "ACTIVE"
+    },
+    {
+      "registryId": "123456789012",
+      "repositoryName": "app",
+      "imageDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+      "imageSizeInBytes": 1073741824,
+      "imagePushedAt": 1577836800
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+    "imageDetails": [
+        {
+            "registryId": "012345678910",
+            "repositoryName": "team/app-api_v2.0",
+            "imageDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "imageTags": ["v2", "stable"],
+            "imageSizeInBytes": 3221225472,
+            "imagePushedAt": "2026-11-10T08:30:00.123000+01:00",
+            "imageManifestMediaType": "application/vnd.oci.image.manifest.v1+json",
+            "imageStatus": "ACTIVE"
+        },
+        {
+            "registryId": "012345678910",
+            "repositoryName": "team/app-api_v2.0",
+            "imageDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "imageSizeInBytes": 1073741824,
+            "imagePushedAt": "2026-01-01T00:00:00Z"
+        }
+    ]
+}

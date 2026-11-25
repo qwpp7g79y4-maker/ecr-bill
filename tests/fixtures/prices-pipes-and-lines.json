@@ -1,0 +1,15 @@
+{
+  "note": "synthetic price file whose region name has a pipe and a line break",
+  "source_url": "https://aws.amazon.com/ecr/pricing/",
+  "source_date": "2026-11-09",
+  "region": "us-east-1",
+  "region_name": "US|East\nline",
+  "usd_per_gb_month": {
+    "standard": "0.10",
+    "archive_first_150_tb": "0.10",
+    "archive_over_150_tb": "0.07"
+  },
+  "usd_per_gb_retrieval": "0.03",
+  "archive_tier_tb": 150,
+  "archive_min_days": 90
+}

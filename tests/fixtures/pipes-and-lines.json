@@ -1,0 +1,5 @@
+{"imageDetails":[
+{"repositoryName":"app_one","imageDigest":"sha256:d1","imageSizeInBytes":1073741824,"imageTags":["x"]},
+{"repositoryName":"app.two","imageDigest":"sha256:d2|x`y*z","imageSizeInBytes":2147483648},
+{"repositoryName":"plain-name","imageDigest":"sha256:d3","imageSizeInBytes":1}
+]}

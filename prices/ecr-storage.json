@@ -1,0 +1,15 @@
+{
+  "note": "US East (N. Virginia) rates from https://aws.amazon.com/ecr/pricing/ as read on 2026-11-09. The page fills the storage table from the public pricing map published 2026-09-11T12:44:25Z. ECR Standard, all storage, is 0.10 USD per GB-month. ECR Archive is 0.10 USD per GB-month for the first 150 TB and 0.07 USD per GB-month over 150 TB. Archive retrieval is 0.03 USD per GB and is not added to this storage bill. Archive storage has a 90-day minimum on the page. The worked examples on the page are 40 GB at 0.10 USD = 4 USD, and 20 GB in us-east-1 = 2 USD. This tool treats 1 GB as 1073741824 bytes and 1 TB as 1024 GB.",
+  "source_url": "https://aws.amazon.com/ecr/pricing/",
+  "source_date": "2026-11-09",
+  "region": "us-east-1",
+  "region_name": "US East (N. Virginia)",
+  "usd_per_gb_month": {
+    "standard": "0.10",
+    "archive_first_150_tb": "0.10",
+    "archive_over_150_tb": "0.07"
+  },
+  "usd_per_gb_retrieval": "0.03",
+  "archive_tier_tb": 150,
+  "archive_min_days": 90
+}
