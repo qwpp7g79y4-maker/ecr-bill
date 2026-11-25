@@ -17,7 +17,7 @@ Per target: lib unittests 96, `tests/cli.rs` 53, `tests/docs_clean.rs` 4, `tests
 
 ## Not run
 
-- Rust 1.85 (MSRV): measured on 2026-11-25 on the code of b70469c with rustc 1.85.1 and cargo 1.85.1: `cargo +1.85 fmt --check` exit 0, `cargo +1.85 clippy --all-targets --locked -- -D warnings` exit 0, `cargo +1.85 test --locked` (debug) exit 0 with 206 passed, 0 failed, 0 ignored; release with 1.85: not run
+- Rust 1.85 (MSRV): measured on 2026-11-25 on the code of b70469c with rustc 1.85.1 and cargo 1.85.1: `cargo +1.85 fmt --check` exit 0, `cargo +1.85 clippy --all-targets --locked -- -D warnings` exit 0, `cargo +1.85 test --locked` (debug) exit 0 with 206 passed, 0 failed, 0 ignored; release with 1.85: `cargo +1.85 test --release --locked` exit 0 with 241 passed, 0 failed, 0 ignored, measured on 2026-11-25 on a883081
 - Windows target: not run
 - macOS target: not run
 - Unpacked package (`cargo package`): not run

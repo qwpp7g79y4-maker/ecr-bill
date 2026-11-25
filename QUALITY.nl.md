@@ -17,7 +17,7 @@ Per doel: lib-unittests 96, `tests/cli.rs` 53, `tests/docs_clean.rs` 4, `tests/d
 
 ## Not run
 
-- Rust 1.85 (MSRV): gemeten op 2026-11-25 op de code van b70469c met rustc 1.85.1 en cargo 1.85.1: `cargo +1.85 fmt --check` exit 0, `cargo +1.85 clippy --all-targets --locked -- -D warnings` exit 0, `cargo +1.85 test --locked` (debug) exit 0 met 206 geslaagd, 0 mislukt, 0 genegeerd; release met 1.85: not run
+- Rust 1.85 (MSRV): gemeten op 2026-11-25 op de code van b70469c met rustc 1.85.1 en cargo 1.85.1: `cargo +1.85 fmt --check` exit 0, `cargo +1.85 clippy --all-targets --locked -- -D warnings` exit 0, `cargo +1.85 test --locked` (debug) exit 0 met 206 geslaagd, 0 mislukt, 0 genegeerd; release met 1.85: `cargo +1.85 test --release --locked` exit 0 met 241 geslaagd, 0 mislukt, 0 genegeerd, gemeten op 2026-11-25 op a883081
 - Windows-doel: not run
 - macOS-doel: not run
 - Uitgepakt pakket (`cargo package`): not run
