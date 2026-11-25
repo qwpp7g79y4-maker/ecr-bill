@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
+- `--output FILE` with a file name of 245 characters no longer fails. The temporary file was named after the target plus 18 more characters, which went past the 255-byte limit of a name on most file systems; it is now `.ecr-bill-<pid>.tmp`, whatever the name of `FILE`. Test: `a_file_name_of_245_characters_can_be_written`.
+- `--output FILE` keeps the permissions of an existing `FILE`: `chmod 600` stays 600 (before, the replacement got the default mode of a new file). A new `FILE` gets the default mode as before. Owner and group are not copied. Test: `an_existing_file_keeps_its_permissions`.
 - A path that becomes a fifo with no writer between the file check and the open no longer blocks the process. On Unix the open does not wait, and the opened file is refused when it is not a regular file (`not a file`). A fifo that is already a fifo at the check is still refused without being opened. Test: `a_fifo_replaced_between_the_check_and_the_open_is_refused`.
 
 ### Changed

@@ -160,34 +160,36 @@ fn main() -> ExitCode {
 /// Write the report to `path` in one step: the bytes go to a new file in the
 /// same directory, which is then renamed over `path`, so `path` holds either
 /// the old content or the whole new report. A symbolic link and anything that
-/// is not a regular file are refused; the temporary file is created with
+/// is not a regular file are refused; an existing file keeps its permissions;
+/// the temporary file is created with
 /// `create_new`, which does not follow a link either.
 fn write_report_file(path: &Path, bytes: &[u8]) -> Result<(), String> {
-    match std::fs::symlink_metadata(path) {
+    let existing_permissions = match std::fs::symlink_metadata(path) {
         Ok(meta) if meta.file_type().is_symlink() => {
             return Err("the path is a symbolic link".to_string())
         }
         Ok(meta) if !meta.is_file() => return Err("the path is not a regular file".to_string()),
-        Ok(_) => {}
-        Err(err) if err.kind() == std::io::ErrorKind::NotFound => {}
+        Ok(meta) => Some(meta.permissions()),
+        Err(err) if err.kind() == std::io::ErrorKind::NotFound => None,
         Err(err) => return Err(err.to_string()),
-    }
-    let name = path
-        .file_name()
+    };
+    path.file_name()
         .ok_or_else(|| "the path has no file name".to_string())?;
     let parent = match path.parent() {
         Some(parent) if !parent.as_os_str().is_empty() => parent,
         _ => Path::new("."),
     };
-    let mut temp_name = std::ffi::OsString::from(".");
-    temp_name.push(name);
-    temp_name.push(format!(".ecr-bill-{}.tmp", std::process::id()));
-    let temp = parent.join(temp_name);
+    // The temporary name does not contain the target name, so a target name
+    // at the limit of the file system still has room for it.
+    let temp = parent.join(format!(".ecr-bill-{}.tmp", std::process::id()));
     let result = (|| -> std::io::Result<()> {
         let mut file = std::fs::OpenOptions::new()
             .write(true)
             .create_new(true)
             .open(&temp)?;
+        if let Some(permissions) = existing_permissions {
+            file.set_permissions(permissions)?;
+        }
         file.write_all(bytes)?;
         file.sync_all()?;
         drop(file);

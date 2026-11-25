@@ -254,3 +254,46 @@ fn a_sigint_before_the_report_is_finished_keeps_the_existing_output_file() {
         vec!["report.txt".to_string(), "slow.json".to_string()]
     );
 }
+
+#[cfg(unix)]
+#[test]
+fn a_file_name_of_245_characters_can_be_written() {
+    let dir = scratch("long-name");
+    let path = dir.join("a".repeat(245));
+    let (code, expected, _) = run(&["--as-of", AS_OF, EXAMPLE]);
+    assert_eq!(code, 0);
+    let (code, _, stderr) = run(&[
+        "--as-of",
+        AS_OF,
+        "--output",
+        path.to_str().unwrap(),
+        EXAMPLE,
+    ]);
+    assert_eq!(code, 0, "{stderr}");
+    assert_eq!(fs::read_to_string(&path).unwrap(), expected);
+    assert_eq!(names(&dir), vec!["a".repeat(245)]);
+}
+
+#[cfg(unix)]
+#[test]
+fn an_existing_file_keeps_its_permissions() {
+    use std::os::unix::fs::PermissionsExt;
+    for mode in [0o600, 0o640, 0o644, 0o664] {
+        let dir = scratch(&format!("mode-{mode:o}"));
+        let path = dir.join("report.txt");
+        fs::write(&path, "old").unwrap();
+        fs::set_permissions(&path, fs::Permissions::from_mode(mode)).unwrap();
+        let (code, _, stderr) = run(&[
+            "--as-of",
+            AS_OF,
+            "--output",
+            path.to_str().unwrap(),
+            EXAMPLE,
+        ]);
+        assert_eq!(code, 0, "{stderr}");
+        let got = fs::metadata(&path).unwrap().permissions().mode() & 0o7777;
+        assert_eq!(got, mode, "mode {mode:o} became {got:o}");
+        assert_ne!(fs::read_to_string(&path).unwrap(), "old");
+        assert_eq!(names(&dir), vec!["report.txt".to_string()]);
+    }
+}
