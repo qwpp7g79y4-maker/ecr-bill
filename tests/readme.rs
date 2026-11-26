@@ -320,7 +320,7 @@ fn licenses_and_changelog_match_the_package() {
     let changelog = read("CHANGELOG.md");
     assert!(changelog.contains("## [1.0.0] - 2026-11-19"));
     assert!(changelog.contains("## [0.1.0] - 2026-11-09"));
-    assert!(changelog.contains("not published"));
+    assert!(!changelog.contains("not published"));
     let cargo = read("Cargo.toml");
     assert!(cargo.contains("MIT OR Apache-2.0"));
     assert!(cargo.contains("rust-version = \"1.85\""));

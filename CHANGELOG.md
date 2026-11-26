@@ -78,8 +78,6 @@ Changes made after 2026-11-19; the version number did not change.
 - `man/ecr-bill.1`, and `tests/handbook_help.rs`, which checks that the man page holds the `--help` text verbatim, that its OPTIONS section on its own has exactly the long options of `--help`, and that `.gitattributes` forces LF. `tests/docs_clean.rs` fails, in any letter case and with the line number, if a document, the man page, a package file (including `Cargo.lock` and both licenses), a script, a workflow, a source or a test holds a local path, a build-wrapper option, the name of a working file or an internal tool, the name of an AI system or a person, or a co-author line.
 - Tests for the escaping, digest, depth, rounding, archive-share, file-label, policy-schema and stdout cases above. There are now 158 tests: 95 unit tests, 46 command-line tests, 11 README tests, 2 handbook tests and 4 document tests.
 
-This version is not published and has no git tag.
-
 ## [0.1.0] - 2026-11-09
 
 ### Added
@@ -88,5 +86,3 @@ This version is not published and has no git tag.
 - Untagged images and images older than a chosen number of days are listed.
 - A lifecycle policy is printed as JSON text. The policy is not applied.
 - Built-in US East (N. Virginia) rates from the Amazon ECR pricing page, read on 2026-11-09, and a `--prices` file for another quote.
-
-This version is not published and has no git tag.
