@@ -5,7 +5,9 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-11-19
+
+Changes made after 2026-11-19; the version number did not change.
 
 ### Fixed
 
@@ -40,7 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `README.md` and `README.nl.md` have Prices and responsibility, and Maintenance (its own section, apart from Support): the built-in prices are a snapshot the reader checks, and a new version follows a reported bug, a request, or a security issue.
 
-## [1.0.0] - 2026-11-19
 
 ### Changed
 
