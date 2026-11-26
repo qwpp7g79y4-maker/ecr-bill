@@ -168,7 +168,8 @@ fn installation_uses_a_local_path() {
     let install = section(&readme, "## Installation");
     assert!(install.contains("cargo install --locked --path ."));
     assert!(install.contains("1.85"));
-    assert!(install.contains("not published"));
+    assert!(install.contains("cargo install ecr-bill"));
+    assert!(!install.contains("not published"));
 }
 
 #[test]

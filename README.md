@@ -10,7 +10,7 @@ An `aws ecr describe-images` export already lists each image's size, tags, and s
 
 ## Installation
 
-Version 1.0.0. From crates.io, once 1.0.0 is published there:
+Version 1.0.0. From crates.io:
 
 ```sh
 cargo install ecr-bill
@@ -25,7 +25,7 @@ cargo install --locked --path .
 ecr-bill --help
 ```
 
-This crate is not published yet. Until then, install from this checkout. The tests that `cargo test --locked` runs are counted per test file in [QUALITY.md](QUALITY.md).
+The tests that `cargo test --locked` runs are counted per test file in [QUALITY.md](QUALITY.md).
 
 ## Quick start
 
