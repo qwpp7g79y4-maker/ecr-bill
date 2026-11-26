@@ -1,6 +1,6 @@
 # Kwaliteit
 
-pep: 8.6
+pep: 10
 
 Meting van 2026-11-25 op codecommit 157f671 (schone worktree, tak fix/output-long-name). Linux x86_64, rustc 1.99.0 en cargo 1.99.0 (stable).
 

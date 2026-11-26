@@ -1,6 +1,6 @@
 # Quality
 
-pep: 8.6
+pep: 10
 
 Record of 2026-11-25 on code commit 157f671 (clean worktree, branch fix/output-long-name). Linux x86_64, rustc 1.99.0 and cargo 1.99.0 (stable).
 
