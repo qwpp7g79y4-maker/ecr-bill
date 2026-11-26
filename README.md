@@ -97,7 +97,7 @@ Warnings are printed as `warning:` lines in the text report. With `--json` they 
 `--json` prints the same totals. Money and byte totals are strings. The policy object is the lifecycle text; `not_executed` sits beside it, not inside it.
 
 
-## Aan de slag in 5 minuten
+## Quickstart in 5 minutes
 
 Five commands, offline, on the file in `examples/`. They need no account and no network, and they write nothing. Run them from the root of a clone, with `ecr-bill` on your `PATH` (after `cargo install --locked --path .`, or use `target/release/ecr-bill`). A test runs the commands in this block literally.
 
