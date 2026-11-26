@@ -1,5 +1,7 @@
 # ecr-bill
 
+[![crates.io](https://img.shields.io/crates/v/ecr-bill.svg)](https://crates.io/crates/ecr-bill) [![downloads](https://img.shields.io/crates/d/ecr-bill.svg)](https://crates.io/crates/ecr-bill) [![CI](https://github.com/qwpp7g79y4-maker/ecr-bill/actions/workflows/ci.yml/badge.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill/actions/workflows/ci.yml) [![PEPAI checked](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fqwpp7g79y4-maker%2Fecr-bill%2Fmain%2F.github%2Fbadge.json)](QUALITY.md) [![MSRV 1.85](https://img.shields.io/badge/MSRV-1.85-blue.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill/blob/main/Cargo.toml) [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill#license)
+
 Estimate Amazon ECR storage cost from `describe-images` JSON. Reads files only, no network.
 
 ## Why
@@ -97,7 +99,7 @@ Warnings are printed as `warning:` lines in the text report. With `--json` they 
 `--json` prints the same totals. Money and byte totals are strings. The policy object is the lifecycle text; `not_executed` sits beside it, not inside it.
 
 
-## Aan de slag in 5 minuten
+## Quickstart in 5 minutes
 
 Five commands, offline, on the file in `examples/`. They need no account and no network, and they write nothing. Run them from the root of a clone, with `ecr-bill` on your `PATH` (after `cargo install --locked --path .`, or use `target/release/ecr-bill`). A test runs the commands in this block literally.
 
@@ -368,7 +370,7 @@ Old prices are shown, not hidden. When the `source_date` of the price file in us
 
 ## Maintenance
 
-Report a bug through GitHub Issues on this repository. After a release this tool is dormant. A new version appears only for a reported bug, a request, or a security issue. A security issue comes first.
+Report a bug through GitHub Issues on this repository. After a release this tool is dormant. A new version appears only for a reported bug, a request, or a security issue. Security always comes first.
 
 ## Support
 

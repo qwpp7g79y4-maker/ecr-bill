@@ -96,7 +96,7 @@ fn readme_sections_follow_the_documentation_standard() {
             "Why",
             "Installation",
             "Quick start",
-            "Aan de slag in 5 minuten",
+            "Quickstart in 5 minutes",
             "Options",
             "Example",
             "How it counts",
@@ -192,7 +192,12 @@ fn the_quick_start_writes_nothing_and_the_example_file_is_the_one_described() {
 fn the_five_minute_commands_run_literally_and_exit_0() {
     for name in ["README.md", "README.nl.md"] {
         let readme = read(name);
-        let block = section(&readme, "## Aan de slag in 5 minuten");
+        let heading = if name == "README.md" {
+            "## Quickstart in 5 minutes"
+        } else {
+            "## Aan de slag in 5 minuten"
+        };
+        let block = section(&readme, heading);
         let start = block.find("```sh\n").expect("sh block") + 6;
         let end = start + block[start..].find("```").expect("end of block");
         let calls: Vec<&str> = block[start..end].lines().collect();
