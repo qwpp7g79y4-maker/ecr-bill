@@ -61,7 +61,7 @@ fn help_and_version_exit_0() {
     let (code, stdout, stderr) = run(&["--version"]);
     assert_eq!(code, 0);
     assert!(stderr.is_empty(), "{stderr}");
-    assert!(stdout.contains("ecr-bill 1.0.0"));
+    assert!(stdout.contains("ecr-bill 1.0.1"));
 }
 
 #[test]
@@ -1570,13 +1570,13 @@ fn version_shows_the_commit_in_a_debug_build_only_when_git_names_one() {
         (true, Some(sha)) if sha.len() == 40 => {
             // The binary was built at some commit; it is a full sha, not HEAD at test time.
             let rest = line
-                .strip_prefix("ecr-bill 1.0.0 (")
+                .strip_prefix("ecr-bill 1.0.1 (")
                 .and_then(|r| r.strip_suffix(')'))
                 .unwrap_or_else(|| panic!("no commit in {line:?}"));
             assert_eq!(rest.len(), 40, "{line:?}");
             assert!(rest.bytes().all(|b| b.is_ascii_hexdigit()), "{line:?}");
         }
-        (false, _) => assert_eq!(line, "ecr-bill 1.0.0"),
-        _ => assert!(line.starts_with("ecr-bill 1.0.0"), "{line:?}"),
+        (false, _) => assert_eq!(line, "ecr-bill 1.0.1"),
+        _ => assert!(line.starts_with("ecr-bill 1.0.1"), "{line:?}"),
     }
 }
