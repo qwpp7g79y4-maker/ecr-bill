@@ -10,7 +10,7 @@ Een `aws ecr describe-images`-export noemt per image de grootte, de tags en de s
 
 ## Installatie
 
-Versie 1.0.1. Van crates.io, zodra 1.0.1 daar staat:
+Versie 1.0.2. Van crates.io:
 
 ```sh
 cargo install ecr-bill
@@ -25,7 +25,7 @@ cargo install --locked --path .
 ecr-bill --help
 ```
 
-Dit crate is nog niet gepubliceerd (not published). Installeer tot die tijd vanuit deze checkout. De tests die `cargo test --locked` draait staan per testbestand in [QUALITY.md](QUALITY.md).
+De tests die `cargo test --locked` draait staan per testbestand in [QUALITY.md](QUALITY.md).
 
 ## Snelstart
 
@@ -337,7 +337,7 @@ Archiefdollars worden getrapt over de gearchiveerde bytes in de invoer. Ligt elk
 
 ## Beperkingen
 
-Versie 1.0.1 prijst alleen Amazon ECR; andere registries vallen buiten het bereik (other registries). De lifecycle-regel wordt niet uitgevoerd (not executed): deze tool roept PutLifecyclePolicy niet aan. Er is geen AWS SDK en geen netwerkaanroep (no network). Een bestand boven 268435456 bytes wordt geweigerd. Een symlink naar een bestand wordt gevolgd. Een map of ander bestand dat geen gewoon bestand is, is een fout. Een pad dat tussen die controle en het openen door een fifo wordt vervangen, wordt net zo geweigerd, en het openen wacht niet op een schrijver. Het ingebouwde tarief is us-east-1. Ophalen (retrieval) zit niet in deze opslagrekening en het archiefminimum van 90 dagen wordt niet gerekend. De gratis laag van het account wordt niet toegepast (free tier is not applied): de private 500 MB en de publieke 50 GB worden niet afgetrokken. Dezelfde digest telt twee keer als twee bestanden hem noemen (same digest counts twice). Dataverkeer, managed signing en encryptie worden niet geprijsd. De leeftijdslijst en de policy zijn geen voorspelling (not a forecast). Een repositoryrij blijft op de cent. Het dollartotaal is de som van de onafgeronde (unrounded) bedragen, daarna één keer op de cent afgerond.
+Versie 1.0.2 prijst alleen Amazon ECR; andere registries vallen buiten het bereik (other registries). De lifecycle-regel wordt niet uitgevoerd (not executed): deze tool roept PutLifecyclePolicy niet aan. Er is geen AWS SDK en geen netwerkaanroep (no network). Een bestand boven 268435456 bytes wordt geweigerd. Een symlink naar een bestand wordt gevolgd. Een map of ander bestand dat geen gewoon bestand is, is een fout. Een pad dat tussen die controle en het openen door een fifo wordt vervangen, wordt net zo geweigerd, en het openen wacht niet op een schrijver. Het ingebouwde tarief is us-east-1. Ophalen (retrieval) zit niet in deze opslagrekening en het archiefminimum van 90 dagen wordt niet gerekend. De gratis laag van het account wordt niet toegepast (free tier is not applied): de private 500 MB en de publieke 50 GB worden niet afgetrokken. Dezelfde digest telt twee keer als twee bestanden hem noemen (same digest counts twice). Dataverkeer, managed signing en encryptie worden niet geprijsd. De leeftijdslijst en de policy zijn geen voorspelling (not a forecast). Een repositoryrij blijft op de cent. Het dollartotaal is de som van de onafgeronde (unrounded) bedragen, daarna één keer op de cent afgerond.
 
 Invoerregels. Een bestand is UTF-8 JSON met één waarde; een BOM aan het begin wordt geaccepteerd, UTF-16 wordt geweigerd (`not UTF-8` met BOM, `not JSON` zonder), en een tweede waarde na de eerste is `not JSON`. Nesting is hoogstens 128 niveaus; dieper is de fout `JSON nesting is deeper than 128 levels`. Een dubbele sleutel in een object is een fout. `imageSizeInBytes` is een geheel getal van 0 tot 18446744073709551615, en een bytetotaal dat niet in 64 bits past is een fout. `imageStatus` wordt hoofdletterongevoelig gelezen, met ASCII-spaties eromheen weggelaten; een lege of blanke status en `null` tellen als Standard, net als een ontbrekende, zonder waarschuwing. Een `imageDigest` met een spatie of tab is een fout. Een ontbrekende digest wordt getoond als `(none)`; een digest die zelf `(none)` is, of met een aanhalingsteken begint, wordt tussen aanhalingstekens getoond, zodat de twee niet verward kunnen worden. Stuur-, regeleinde- en onzichtbare tekens in een waarde, bestandsnaam of opdrachtregelargument dat een melding herhaalt, worden als `\u{hex}` geschreven in tekst en meldingen, en als `\uXXXX`-escape in `--json`-strings; de vier prijsbestandteksten in `--json` (`source_url`, `source_date`, `region`, `region_name`) worden eerst in de tekstvorm geschreven (`\u{202e}`, `\n`), dus in de JSON staan ze met een dubbele backslash (`\\u{202e}`). Een gebruiksfout blijft daardoor op de regels die clap afdrukt. Fouten over een heel bestand noemen het bestand; fouten over één image zeggen `file N: image M`.
 

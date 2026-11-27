@@ -27,7 +27,7 @@ Per target: lib unittests 96, `tests/cli.rs` 53, `tests/docs_clean.rs` 4, `tests
 - Fuzzing and mutation testing: not run
 - Earlier measurements (203 passed on 7cdee6b, 204 on 00e03bd and on 8003f90) are replaced by this record and were not repeated beyond the table above.
 
-Version 1.0.0 is not published and has no git tag.
+Version 1.0.0 has no git tag.
 
 ## Claim → test
 
@@ -54,7 +54,7 @@ Every claim of `README.md`, the man page and the line-ending rule, with the test
 | C17 | `--prices` replaces the quote; an unknown field is ignored; a duplicate key is an error | `bill::claim_c17_prices_override_changes_the_bill`, `price::claim_c17_unknown_field_ignored_and_duplicate_hidden`, `json_scan::duplicate_key_is_exact` | tested |
 | C18 | A bad `imageSizeInBytes` is reported without the value or the digest | `parse::claim_c18_bad_size_hides_the_value`, `empty_details_are_zero_and_bad_size_hides_the_row` (`tests/cli.rs`) | tested |
 | R1 | Reads files only, no network, no AWS SDK, no PutLifecyclePolicy | `claim_r1_sources_and_lock_file_have_no_network_or_process_code` (`tests/readme.rs`) | gap: source text and lock file only, no system-call test |
-| R2 | Install with `cargo install --locked --path .`, Rust 1.85, not published | `installation_uses_a_local_path`, `licenses_and_changelog_match_the_package` (`tests/readme.rs`) | tested |
+| R2 | Install with `cargo install --locked --path .`, Rust 1.85 | `installation_uses_a_local_path`, `licenses_and_changelog_match_the_package` (`tests/readme.rs`) | tested |
 | R3 | Version 1.0.0 | `help_and_version_exit_0` (`tests/cli.rs`, the `--version` text), `licenses_and_changelog_match_the_package` (`tests/readme.rs`) | tested |
 | R4 | (retired: the README no longer states a test count) | none | not a claim |
 | R5 | The quick start names `examples/describe-images.json` and writes no file | `the_quick_start_writes_nothing_and_the_example_file_is_the_one_described` (`tests/readme.rs`) | tested |
