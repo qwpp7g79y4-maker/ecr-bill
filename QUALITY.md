@@ -27,8 +27,6 @@ Per target: lib unittests 96, `tests/cli.rs` 53, `tests/docs_clean.rs` 4, `tests
 - Fuzzing and mutation testing: not run
 - Earlier measurements (203 passed on 7cdee6b, 204 on 00e03bd and on 8003f90) are replaced by this record and were not repeated beyond the table above.
 
-Version 1.0.0 has no git tag.
-
 ## Claim → test
 
 Every claim of `README.md`, the man page and the line-ending rule, with the test that proves it. Test names are from the 2026-11-20 run of 203 tests. "Gap" means no test proves it, or only part of it. Tests are in `src/*.rs` unless the file is named.

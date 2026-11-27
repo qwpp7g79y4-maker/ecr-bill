@@ -27,4 +27,3 @@ Per doel: lib-unittests 96, `tests/cli.rs` 53, `tests/docs_clean.rs` 4, `tests/d
 - Fuzzen en mutatietests: not run
 - Eerdere metingen (203 geslaagd op 7cdee6b, 204 op 00e03bd en op 8003f90) zijn door deze meting vervangen en zijn buiten de tabel hierboven niet herhaald.
 
-Versie 1.0.0 heeft geen git-tag.
