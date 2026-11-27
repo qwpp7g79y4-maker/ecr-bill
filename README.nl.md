@@ -1,6 +1,6 @@
 # ecr-bill
 
-[![crates.io](https://img.shields.io/crates/v/ecr-bill.svg)](https://crates.io/crates/ecr-bill) [![downloads](https://img.shields.io/crates/d/ecr-bill.svg)](https://crates.io/crates/ecr-bill) [![CI](https://github.com/qwpp7g79y4-maker/ecr-bill/actions/workflows/ci.yml/badge.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill/actions/workflows/ci.yml) [![PEPAI checked](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fqwpp7g79y4-maker%2Fecr-bill%2Fmain%2F.github%2Fbadge.json)](QUALITY.md) [![MSRV 1.85](https://img.shields.io/badge/MSRV-1.85-blue.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill/blob/main/Cargo.toml) [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill#license)
+[![crates.io](https://img.shields.io/crates/v/ecr-bill.svg)](https://crates.io/crates/ecr-bill) [![downloads](https://img.shields.io/crates/d/ecr-bill.svg)](https://crates.io/crates/ecr-bill) [![CI](https://github.com/qwpp7g79y4-maker/ecr-bill/actions/workflows/ci.yml/badge.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill/actions/workflows/ci.yml) [![MSRV 1.85](https://img.shields.io/badge/MSRV-1.85-blue.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill/blob/main/Cargo.toml) [![License: MIT OR Apache-2.0](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)](https://github.com/qwpp7g79y4-maker/ecr-bill#license)
 
 Schat de opslagkosten van Amazon ECR uit `describe-images`-JSON. Leest alleen bestanden, geen netwerk.
 
